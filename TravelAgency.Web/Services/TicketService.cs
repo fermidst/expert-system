@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TravelAgency.Infrastructure;
 using TravelAgency.Web.Dtos;
@@ -14,12 +15,12 @@ namespace TravelAgency.Web.Services
             _dbContext = dbContext;
         }
 
-        public async Task<Infrastructure.Models.Ticket> GetTicket(long ticketId)
+        public async Task<Infrastructure.Models.Ticket> GetTicketAsync(long ticketId)
         {
             return await _dbContext.Tickets.SingleOrDefaultAsync(ticket => ticket.Id == ticketId);
         }
 
-        public async Task<Infrastructure.Models.Ticket> UpdateTicket(long ticketId, SaveTicket ticket)
+        public async Task<Infrastructure.Models.Ticket> UpdateTicketAsync(long ticketId, SaveTicket ticket)
         {
             var entity = await _dbContext.Tickets.SingleOrDefaultAsync(t => t.Id == ticketId);
             entity.Address = ticket.Address;
@@ -31,7 +32,7 @@ namespace TravelAgency.Web.Services
             return entity;
         }
 
-        public async Task<Infrastructure.Models.Ticket> CreateTicket(SaveTicket ticket)
+        public async Task<Infrastructure.Models.Ticket> CreateTicketAsync(SaveTicket ticket)
         {
             var entry = await _dbContext.Tickets.AddAsync(new Infrastructure.Models.Ticket
             {
@@ -45,11 +46,16 @@ namespace TravelAgency.Web.Services
             return entry.Entity;
         }
 
-        public async Task DeleteTicket(long ticketId)
+        public async Task DeleteTicketAsync(long ticketId)
         {
             var entity = await _dbContext.Tickets.SingleOrDefaultAsync(t => t.Id == ticketId);
             _dbContext.Tickets.Remove(entity);
             await _dbContext.SaveChangesAsync();
+        }
+        
+        public IQueryable<Infrastructure.Models.Ticket> GetTickets()
+        {
+            return _dbContext.Tickets;
         }
     }
 }

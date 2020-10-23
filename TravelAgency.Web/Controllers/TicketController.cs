@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using TravelAgency.Web.Dtos;
@@ -22,29 +22,39 @@ namespace TravelAgency.Web.Controllers
         [HttpGet("{ticketId}")]
         public async Task<Ticket> GetTicket(long ticketId)
         {
-            var result = await _ticketService.GetTicket(ticketId);
+            var result = await _ticketService.GetTicketAsync(ticketId);
             return _mapper.Map<Ticket>(result);
         }
 
         [HttpPut("{ticketId}")]
         public async Task<Ticket> UpdateTicket(long ticketId, SaveTicket ticket)
         {
-            var result = await _ticketService.UpdateTicket(ticketId, ticket);
+            var result = await _ticketService.UpdateTicketAsync(ticketId, ticket);
             return _mapper.Map<Ticket>(result);
         }
 
         [HttpPost("")]
         public async Task<Ticket> CreateTicket(SaveTicket ticket)
         {
-            var result = await _ticketService.CreateTicket(ticket);
+            var result = await _ticketService.CreateTicketAsync(ticket);
             return _mapper.Map<Ticket>(result);
         }
 
         [HttpDelete("{ticketId}")]
         public async Task<ActionResult> DeleteTicket(long ticketId)
         {
-            await _ticketService.DeleteTicket(ticketId);
+            await _ticketService.DeleteTicketAsync(ticketId);
             return new NoContentResult();
+        }
+        
+        [HttpGet("/tickets")]
+        public Tickets GetClients()
+        {
+            var result = _ticketService.GetTickets();
+            return new Tickets
+            {
+                Result = _mapper.ProjectTo<Ticket>(result)
+            };
         }
     }
 }

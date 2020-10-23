@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TravelAgency.Infrastructure;
-using TravelAgency.Infrastructure.Models;
 using TravelAgency.Web.Dtos;
 
 namespace TravelAgency.Web.Services
@@ -15,12 +15,17 @@ namespace TravelAgency.Web.Services
             _dbContext = dbContext;
         }
 
-        public async Task<Infrastructure.Models.Client> GetClient(long clientId)
+        public async Task<Infrastructure.Models.Client> GetClientAsync(long clientId)
         {
             return await _dbContext.Clients.SingleOrDefaultAsync(client => client.Id == clientId);
         }
 
-        public async Task<Infrastructure.Models.Client> UpdateClient(long clientId, SaveClient client)
+        public IQueryable<Infrastructure.Models.Client> GetClientsAsync()
+        {
+            return _dbContext.Clients;
+        }
+
+        public async Task<Infrastructure.Models.Client> UpdateClientAsync(long clientId, SaveClient client)
         {
             var entity = await _dbContext.Clients.SingleOrDefaultAsync(c => c.Id == clientId);
             entity.DepartureDate = client.DepartureDate;
@@ -29,18 +34,19 @@ namespace TravelAgency.Web.Services
             return entity;
         }
 
-        public async Task<Infrastructure.Models.Client> CreateClient(SaveClient client)
+        public async Task<Infrastructure.Models.Client> CreateClientAsync(SaveClient client)
         {
             var entry = await _dbContext.Clients.AddAsync(new Infrastructure.Models.Client
             {
                 DepartureDate = client.DepartureDate,
-                FullName = client.FullName
+                FullName = client.FullName,
+                TicketId = client.TicketId
             });
             await _dbContext.SaveChangesAsync();
             return entry.Entity;
         }
 
-        public async Task DeleteClient(long clientId)
+        public async Task DeleteClientAsync(long clientId)
         {
             var entity = await _dbContext.Clients.SingleOrDefaultAsync(c => c.Id == clientId);
             _dbContext.Clients.Remove(entity);
