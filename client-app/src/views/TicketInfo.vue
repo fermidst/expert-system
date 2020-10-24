@@ -1,8 +1,10 @@
-<template><div></div> </template>
+<template><MainLayout /></template>
 
 <script>
+import MainLayout from "@/components/layout/MainLayout";
 export default {
-  name: "TicketInfo"
+  name: "TicketInfo",
+  components: { MainLayout }
 };
 </script>
 

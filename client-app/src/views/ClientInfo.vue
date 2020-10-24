@@ -1,10 +1,14 @@
 <template>
-  <div></div>
+  <MainLayout>
+    <template v-slot:title> </template>
+  </MainLayout>
 </template>
 
 <script>
+import MainLayout from "@/components/layout/MainLayout";
 export default {
-  name: "ClientInfo"
+  name: "ClientInfo",
+  components: { MainLayout }
 };
 </script>
 
