@@ -25,20 +25,18 @@ namespace TravelAgency.Web.Services
             return _dbContext.Clients;
         }
 
-        public async Task<Infrastructure.Models.Client> UpdateClientAsync(long clientId, SaveClient client)
+        public async Task<Infrastructure.Models.Client> UpdateClientAsync(long clientId, ClientRequestDto client)
         {
             var entity = await _dbContext.Clients.SingleOrDefaultAsync(c => c.Id == clientId);
-            entity.DepartureDate = client.DepartureDate;
             entity.FullName = client.FullName;
             await _dbContext.SaveChangesAsync();
             return entity;
         }
 
-        public async Task<Infrastructure.Models.Client> CreateClientAsync(SaveClient client)
+        public async Task<Infrastructure.Models.Client> CreateClientAsync(ClientRequestDto client)
         {
             var entry = await _dbContext.Clients.AddAsync(new Infrastructure.Models.Client
             {
-                DepartureDate = client.DepartureDate,
                 FullName = client.FullName,
                 TicketId = client.TicketId
             });

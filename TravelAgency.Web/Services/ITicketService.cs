@@ -8,9 +8,9 @@ namespace TravelAgency.Web.Services
     {
         Task<Infrastructure.Models.Ticket> GetTicketAsync(long ticketId);
 
-        Task<Infrastructure.Models.Ticket> UpdateTicketAsync(long ticketId, SaveTicket ticket);
+        Task<Infrastructure.Models.Ticket> UpdateTicketAsync(long ticketId, TicketRequestDto ticketRequestDto);
 
-        Task<Infrastructure.Models.Ticket> CreateTicketAsync(SaveTicket ticket);
+        Task<Infrastructure.Models.Ticket> CreateTicketAsync(TicketRequestDto ticketRequestDto);
 
         Task DeleteTicketAsync(long ticketId);
         

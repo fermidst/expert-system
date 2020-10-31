@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TravelAgency.Infrastructure;
@@ -20,27 +21,39 @@ namespace TravelAgency.Web.Services
             return await _dbContext.Tickets.SingleOrDefaultAsync(ticket => ticket.Id == ticketId);
         }
 
-        public async Task<Infrastructure.Models.Ticket> UpdateTicketAsync(long ticketId, SaveTicket ticket)
+        public async Task<Infrastructure.Models.Ticket> UpdateTicketAsync(long ticketId, TicketRequestDto ticketRequestDto)
         {
+            if (ticketRequestDto.StartDate < DateTime.UtcNow || ticketRequestDto.EndDate < DateTime.UtcNow)
+            {
+                throw new ArgumentException("date is invalid");
+            }
             var entity = await _dbContext.Tickets.SingleOrDefaultAsync(t => t.Id == ticketId);
-            entity.Address = ticket.Address;
-            entity.HotelClass = ticket.HotelClass;
-            entity.StartTime = ticket.StartTime;
-            entity.EndTime = ticket.EndTime;
-            entity.IsAllInclusive = ticket.IsAllInclusive;
+            entity.Address = ticketRequestDto.Address;
+            entity.HotelClass = ticketRequestDto.HotelClass;
+            entity.StartDate = ticketRequestDto.StartDate;
+            entity.EndDate = ticketRequestDto.EndDate;
+            entity.StartTime = TimeSpan.Parse(ticketRequestDto.StartTime);
+            entity.EndTime = TimeSpan.Parse(ticketRequestDto.EndTime);
+            entity.IsAllInclusive = ticketRequestDto.IsAllInclusive;
             await _dbContext.SaveChangesAsync();
             return entity;
         }
 
-        public async Task<Infrastructure.Models.Ticket> CreateTicketAsync(SaveTicket ticket)
+        public async Task<Infrastructure.Models.Ticket> CreateTicketAsync(TicketRequestDto ticketRequestDto)
         {
+            if (ticketRequestDto.StartDate < DateTime.UtcNow || ticketRequestDto.EndDate < DateTime.UtcNow)
+            {
+                throw new ArgumentException("date is invalid");
+            }
             var entry = await _dbContext.Tickets.AddAsync(new Infrastructure.Models.Ticket
             {
-                Address = ticket.Address,
-                HotelClass = ticket.HotelClass,
-                StartTime = ticket.StartTime,
-                EndTime = ticket.EndTime,
-                IsAllInclusive = ticket.IsAllInclusive
+                Address = ticketRequestDto.Address,
+                HotelClass = ticketRequestDto.HotelClass,
+                StartDate = ticketRequestDto.StartDate,
+                EndDate = ticketRequestDto.EndDate,
+                StartTime = TimeSpan.Parse(ticketRequestDto.StartTime),
+                EndTime = TimeSpan.Parse(ticketRequestDto.EndTime),
+                IsAllInclusive = ticketRequestDto.IsAllInclusive
             });
             await _dbContext.SaveChangesAsync();
             return entry.Entity;

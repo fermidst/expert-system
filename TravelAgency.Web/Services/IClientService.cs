@@ -8,9 +8,9 @@ namespace TravelAgency.Web.Services
     {
         Task<Infrastructure.Models.Client> GetClientAsync(long clientId);
 
-        Task<Infrastructure.Models.Client> UpdateClientAsync(long clientId, SaveClient client);
+        Task<Infrastructure.Models.Client> UpdateClientAsync(long clientId, ClientRequestDto client);
 
-        Task<Infrastructure.Models.Client> CreateClientAsync(SaveClient client);
+        Task<Infrastructure.Models.Client> CreateClientAsync(ClientRequestDto client);
 
         IQueryable<Infrastructure.Models.Client> GetClientsAsync();
 

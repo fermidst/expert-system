@@ -20,25 +20,25 @@ namespace TravelAgency.Web.Controllers
             _mapper = mapper;
         }
         [HttpGet("{clientId}")]
-        public async Task<Client> GetClient(long clientId)
+        public async Task<ClientResponseDto> GetClient(long clientId)
         {
             var result = await _clientService.GetClientAsync(clientId);
-            return _mapper.Map<Client>(result);
+            return _mapper.Map<ClientResponseDto>(result);
             
         }
 
         [HttpPut("{clientId}")]
-        public async Task<Client> UpdateClient(long clientId, SaveClient client)
+        public async Task<ClientResponseDto> UpdateClient(long clientId, ClientRequestDto client)
         {
             var result = await _clientService.UpdateClientAsync(clientId, client);
-            return _mapper.Map<Client>(result);
+            return _mapper.Map<ClientResponseDto>(result);
         }
 
         [HttpPost("")]
-        public async Task<Client> CreateClient(SaveClient client)
+        public async Task<ClientResponseDto> CreateClient(ClientRequestDto client)
         {
             var result = await _clientService.CreateClientAsync(client);
-            return _mapper.Map<Client>(result);
+            return _mapper.Map<ClientResponseDto>(result);
         }
 
         [HttpDelete("{clientId}")]
@@ -54,7 +54,7 @@ namespace TravelAgency.Web.Controllers
             var result = _clientService.GetClientsAsync();
             return new Clients
             {
-                Result = _mapper.ProjectTo<Client>(result)
+                Result = _mapper.ProjectTo<ClientResponseDto>(result)
             };
         }
     }

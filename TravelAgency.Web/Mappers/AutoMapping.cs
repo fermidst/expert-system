@@ -7,8 +7,8 @@ namespace TravelAgency.Web.Mappers
     {
         public AutoMapping()
         {
-            CreateMap<Ticket, Dtos.Ticket>().ForSourceMember(ticket => ticket.Clients, opt => opt.DoNotValidate());
-            CreateMap<Client, Dtos.Client>().ForSourceMember(client => client.Ticket, opt => opt.DoNotValidate());
+            CreateMap<Ticket, Dtos.TicketResponseDto>().ForSourceMember(ticket => ticket.Clients, opt => opt.DoNotValidate());
+            CreateMap<Client, Dtos.ClientResponseDto>().ForSourceMember(client => client.Ticket, opt => opt.DoNotValidate());
         }
     }
 }

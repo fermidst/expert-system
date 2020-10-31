@@ -20,24 +20,24 @@ namespace TravelAgency.Web.Controllers
         }
         
         [HttpGet("{ticketId}")]
-        public async Task<Ticket> GetTicket(long ticketId)
+        public async Task<TicketResponseDto> GetTicket(long ticketId)
         {
             var result = await _ticketService.GetTicketAsync(ticketId);
-            return _mapper.Map<Ticket>(result);
+            return _mapper.Map<TicketResponseDto>(result);
         }
 
         [HttpPut("{ticketId}")]
-        public async Task<Ticket> UpdateTicket(long ticketId, SaveTicket ticket)
+        public async Task<TicketResponseDto> UpdateTicket(long ticketId, TicketRequestDto ticketRequestDto)
         {
-            var result = await _ticketService.UpdateTicketAsync(ticketId, ticket);
-            return _mapper.Map<Ticket>(result);
+            var result = await _ticketService.UpdateTicketAsync(ticketId, ticketRequestDto);
+            return _mapper.Map<TicketResponseDto>(result);
         }
 
         [HttpPost("")]
-        public async Task<Ticket> CreateTicket(SaveTicket ticket)
+        public async Task<TicketResponseDto> CreateTicket(TicketRequestDto ticketRequestDto)
         {
-            var result = await _ticketService.CreateTicketAsync(ticket);
-            return _mapper.Map<Ticket>(result);
+            var result = await _ticketService.CreateTicketAsync(ticketRequestDto);
+            return _mapper.Map<TicketResponseDto>(result);
         }
 
         [HttpDelete("{ticketId}")]
@@ -53,7 +53,7 @@ namespace TravelAgency.Web.Controllers
             var result = _ticketService.GetTickets();
             return new Tickets
             {
-                Result = _mapper.ProjectTo<Ticket>(result)
+                Result = _mapper.ProjectTo<TicketResponseDto>(result)
             };
         }
     }

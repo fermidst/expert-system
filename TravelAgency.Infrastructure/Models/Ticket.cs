@@ -11,9 +11,13 @@ namespace TravelAgency.Infrastructure.Models
 
         public HotelClassType HotelClass { get; set; }
 
-        public DateTime StartTime { get; set; }
+        public DateTime StartDate { get; set; }
 
-        public DateTime EndTime { get; set; }
+        public DateTime EndDate { get; set; }
+
+        public TimeSpan StartTime { get; set; }
+        
+        public TimeSpan EndTime { get; set; }
 
         public bool IsAllInclusive { get; set; }
 
