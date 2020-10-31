@@ -1,47 +1,31 @@
 import Axios from "axios";
-import router from "@/router";
 
 const state = {
-  ticketInfo: { isLoading: false, value: null },
   ticketListInfo: { isLoading: false, value: [] }
 };
 
 const getters = {};
 
 const mutations = {
-  setTicketInfo(state, ticketInfo) {
-    state.ticketInfo.value = ticketInfo;
-    state.ticketInfo.isLoading = false;
-  },
   setTicketListInfo(state, ticketListInfo) {
-    state.ticketInfo.value = ticketListInfo;
-    state.ticketInfo.isLoading = false;
+    state.ticketListInfo.value = ticketListInfo;
+    state.ticketListInfo.isLoading = false;
   },
-  setIsLoading(state, { isLoading, fieldName }) {
+  setIsLoadingTicket(state, { isLoading, fieldName }) {
     state[fieldName].isLoading = isLoading;
   }
 };
 
 const actions = {
-  login(context, { name, password }) {
-    if (name === "admin" && password === "admin") {
-      context.commit("setLoginStatus", true);
-      router.push("/");
-    } else alert("Неправильный логин или пароль");
-  },
-  logout(context) {
-    context.commit("setLoginStatus", false);
-    router.push("/login");
-  },
-  async fetchTicketInfo(context, id) {
-    context.commit("setIsLoading", {
+  async fetchTicketListInfo(context) {
+    context.commit("setIsLoadingTicket", {
       isLoading: true,
-      fieldName: "ticketInfo"
+      fieldName: "ticketListInfo"
     });
     return new Promise((resolve, reject) => {
-      Axios.get(`http://localhost:5000/ticket/${id}`)
+      Axios.get(`http://localhost:5000/tickets`)
         .then(response => {
-          context.commit("setTicketInfo", response.data);
+          context.commit("setTicketListInfo", response.data.result);
           resolve();
         })
         .catch(e => {
@@ -49,15 +33,35 @@ const actions = {
         });
     });
   },
-  async fetchTicketListInfo(context) {
-    context.commit("setIsLoading", {
-      isLoading: true,
-      fieldName: "clientListInfo"
-    });
+  async putTicketInfo(context, { id, data }) {
     return new Promise((resolve, reject) => {
-      Axios.get(`http://localhost:5000/tickets`)
-        .then(response => {
-          context.commit("setTicketListInfo", response.data.result);
+      Axios.put(`http://localhost:5000/ticket/${id}`, data)
+        .then(() => {
+          context.dispatch("fetchTicketListInfo");
+          resolve();
+        })
+        .catch(e => {
+          reject(e);
+        });
+    });
+  },
+  async deleteTicketInfo(context, { id }) {
+    return new Promise((resolve, reject) => {
+      Axios.delete(`http://localhost:5000/ticket/${id}`)
+        .then(() => {
+          context.dispatch("fetchTicketListInfo");
+          resolve();
+        })
+        .catch(e => {
+          reject(e);
+        });
+    });
+  },
+  async postTicketInfo(context, { data }) {
+    return new Promise((resolve, reject) => {
+      Axios.post(`http://localhost:5000/ticket/`, data)
+        .then(() => {
+          context.dispatch("fetchTicketListInfo");
           resolve();
         })
         .catch(e => {

@@ -3,11 +3,11 @@
     <template v-slot:icon>
       <v-icon>mdi-shield-account</v-icon>
     </template>
-    <template v-slot:title>Вход</template>
+    <!--    <template v-slot:title>Вход</template>-->
 
     <v-row class="align-center justify-center d-flex">
       <v-col cols="12" md="6" lg="4" xl="3">
-        <v-card elevation="0">
+        <v-card elevation="12" class="pa-4">
           <v-form
             @submit.prevent="() => false"
             ref="form"

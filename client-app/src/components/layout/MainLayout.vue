@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
+      <div>
         <slot name="icon">
           <v-icon>mdi-arrow-left</v-icon>
         </slot>
@@ -13,7 +13,7 @@
         <v-tab to="/clientList" v-if="loginStatus">Список клиентов</v-tab>
         <v-tab to="/ticketList" v-if="loginStatus">Список путевок</v-tab>
       </v-tabs>
-      <slot name="title">Title</slot>
+      <slot name="title">Турагенство</slot>
       <v-btn v-if="loginStatus" class="ml-4" shaped rounded @click="logout"
         >Выход</v-btn
       >
