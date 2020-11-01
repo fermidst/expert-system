@@ -9,9 +9,10 @@
         {{ client }}
       </div>
     </div>
-    <div align="center" v-else>
+    <div class="justify-center" v-else>
       <v-progress-circular indeterminate size="72" />
     </div>
+
     <div v-if="!clientListInfo.isLoading">
       <v-data-table
         :headers="headers"
@@ -92,7 +93,16 @@
           </v-edit-dialog>
         </template>
         <template #item.info="{item}">
-          {{ tickets.find(t => t.id === item.ticketId) }}
+          <v-expansion-panels accordion>
+            <v-expansion-panel>
+              <v-expansion-panel-header
+                >Информация о путевке клиента</v-expansion-panel-header
+              >
+              <v-expansion-panel-content>{{
+                tickets.find(t => t.id === item.ticketId)
+              }}</v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
         </template>
         <template #item.actions="{item}">
           <v-icon small @click="deleteItem(item)">
