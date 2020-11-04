@@ -189,9 +189,9 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-            <v-dialog v-model="dialogDelete" max-width="600px">
+            <v-dialog v-model="dialogDelete" max-width="700px">
               <v-card>
-                <v-card-title class="headline"
+                <v-card-title class="headline justify-center"
                   >Вы уверены, что хотите удалить эту путевку?</v-card-title
                 >
                 <v-card-actions>

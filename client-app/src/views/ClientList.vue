@@ -110,9 +110,9 @@
           </v-icon>
         </template>
       </v-data-table>
-      <v-dialog v-model="deleteDialog" max-width="600px">
+      <v-dialog v-model="deleteDialog" max-width="700px">
         <v-card>
-          <v-card-title class="headline"
+          <v-card-title class="headline justify-center"
             >Вы уверены, что хотите удалить этого клиента?</v-card-title
           >
           <v-card-actions>
