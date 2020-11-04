@@ -1,7 +1,7 @@
 import router from "@/router";
 
 const state = {
-  loginStatus: true
+  loginStatus: false
 };
 
 const getters = {
