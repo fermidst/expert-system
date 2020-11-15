@@ -65,7 +65,7 @@ const actions = {
       fieldName: "clientListInfo"
     });
     return new Promise((resolve, reject) => {
-      Axios.get(`http://localhost:5000/clients`)
+      Axios.get(`/api/clients`)
         .then(response => {
           context.commit("setClientListInfo", response.data.result);
           resolve();
@@ -77,7 +77,7 @@ const actions = {
   },
   async deleteClient(context, { id }) {
     return new Promise((resolve, reject) => {
-      Axios.delete(`http://localhost:5000/client/${id}`)
+      Axios.delete(`/api/client/${id}`)
         .then(() => {
           context.dispatch("fetchClientListInfo");
           resolve();
@@ -89,7 +89,7 @@ const actions = {
   },
   async putClient(context, { id, data }) {
     return new Promise((resolve, reject) => {
-      Axios.put(`http://localhost:5000/client/${id}`, data)
+      Axios.put(`/api/client/${id}`, data)
         .then(() => {
           context.dispatch("fetchClientListInfo");
           resolve();
@@ -101,7 +101,7 @@ const actions = {
   },
   async postClient(context, { data }) {
     return new Promise((resolve, reject) => {
-      Axios.post(`http://localhost:5000/client/`, data)
+      Axios.post(`/api/client/`, data)
         .then(() => {
           context.dispatch("fetchClientListInfo");
           resolve();

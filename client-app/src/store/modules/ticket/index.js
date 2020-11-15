@@ -23,7 +23,7 @@ const actions = {
       fieldName: "ticketListInfo"
     });
     return new Promise((resolve, reject) => {
-      Axios.get(`http://localhost:5000/tickets`)
+      Axios.get(`/api/tickets`)
         .then(response => {
           context.commit("setTicketListInfo", response.data.result);
           resolve();
@@ -35,7 +35,7 @@ const actions = {
   },
   async putTicketInfo(context, { id, data }) {
     return new Promise((resolve, reject) => {
-      Axios.put(`http://localhost:5000/ticket/${id}`, data)
+      Axios.put(`/api/ticket/${id}`, data)
         .then(() => {
           context.dispatch("fetchTicketListInfo");
           resolve();
@@ -47,7 +47,7 @@ const actions = {
   },
   async deleteTicketInfo(context, { id }) {
     return new Promise((resolve, reject) => {
-      Axios.delete(`http://localhost:5000/ticket/${id}`)
+      Axios.delete(`/api/ticket/${id}`)
         .then(() => {
           context.dispatch("fetchTicketListInfo");
           resolve();
@@ -59,7 +59,7 @@ const actions = {
   },
   async postTicketInfo(context, { data }) {
     return new Promise((resolve, reject) => {
-      Axios.post(`http://localhost:5000/ticket/`, data)
+      Axios.post(`/api/ticket/`, data)
         .then(() => {
           context.dispatch("fetchTicketListInfo");
           resolve();
