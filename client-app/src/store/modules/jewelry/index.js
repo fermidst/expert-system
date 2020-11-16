@@ -1,31 +1,31 @@
 import Axios from "axios";
 
 const state = {
-  ticketListInfo: { isLoading: false, value: [] }
+  jewelryListInfo: { isLoading: false, value: [] }
 };
 
 const getters = {};
 
 const mutations = {
-  setTicketListInfo(state, ticketListInfo) {
-    state.ticketListInfo.value = ticketListInfo;
-    state.ticketListInfo.isLoading = false;
+  setJewelryListInfo(state, jewelryListInfo) {
+    state.jewelryListInfo.value = jewelryListInfo;
+    state.jewelryListInfo.isLoading = false;
   },
-  setIsLoadingTicket(state, { isLoading, fieldName }) {
+  setIsLoadingJewelry(state, { isLoading, fieldName }) {
     state[fieldName].isLoading = isLoading;
   }
 };
 
 const actions = {
-  async fetchTicketListInfo(context) {
-    context.commit("setIsLoadingTicket", {
+  async fetchJewelryListInfo(context) {
+    context.commit("setIsLoadingJewelry", {
       isLoading: true,
-      fieldName: "ticketListInfo"
+      fieldName: "jewelryListInfo"
     });
     return new Promise((resolve, reject) => {
-      Axios.get(`/api/tickets`)
+      Axios.get(`/api/jewelries`)
         .then(response => {
-          context.commit("setTicketListInfo", response.data.result);
+          context.commit("setJewelryListInfo", response.data.result);
           resolve();
         })
         .catch(e => {
@@ -33,11 +33,11 @@ const actions = {
         });
     });
   },
-  async putTicketInfo(context, { id, data }) {
+  async putJewelryInfo(context, { id, data }) {
     return new Promise((resolve, reject) => {
-      Axios.put(`/api/ticket/${id}`, data)
+      Axios.put(`/api/jewelry/${id}`, data)
         .then(() => {
-          context.dispatch("fetchTicketListInfo");
+          context.dispatch("fetchJewelryListInfo");
           resolve();
         })
         .catch(e => {
@@ -45,11 +45,11 @@ const actions = {
         });
     });
   },
-  async deleteTicketInfo(context, { id }) {
+  async deleteJewelryInfo(context, { id }) {
     return new Promise((resolve, reject) => {
-      Axios.delete(`/api/ticket/${id}`)
+      Axios.delete(`/api/jewelry/${id}`)
         .then(() => {
-          context.dispatch("fetchTicketListInfo");
+          context.dispatch("fetchJewelryListInfo");
           resolve();
         })
         .catch(e => {
@@ -57,11 +57,11 @@ const actions = {
         });
     });
   },
-  async postTicketInfo(context, { data }) {
+  async postJewelryInfo(context, { data }) {
     return new Promise((resolve, reject) => {
-      Axios.post(`/api/ticket/`, data)
+      Axios.post(`/api/jewelry/`, data)
         .then(() => {
-          context.dispatch("fetchTicketListInfo");
+          context.dispatch("fetchJewelryListInfo");
           resolve();
         })
         .catch(e => {
