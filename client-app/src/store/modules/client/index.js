@@ -2,30 +2,10 @@ import Axios from "axios";
 
 const state = {
   clientListInfo: { isLoading: false, value: [] },
-  editedItem: { id: 0, fullName: "", ticketId: 0 },
-  defaultItem: { id: 0, fullName: "", ticketId: 0 },
+  editedItem: { id: 0, fullName: "", jewelryId: 0 },
+  defaultItem: { id: 0, fullName: "", jewelryId: 0 },
   deleteDialog: false,
-  createDialog: false,
-  selectedTicket: {
-    id: 0,
-    address: "",
-    hotelClass: 0,
-    startDate: "",
-    endDate: "",
-    startTime: "",
-    endTime: "",
-    isAllInclusive: false
-  },
-  defaultTicket: {
-    id: 0,
-    address: "",
-    hotelClass: 0,
-    startDate: "",
-    endDate: "",
-    startTime: "",
-    endTime: "",
-    isAllInclusive: false
-  }
+  createDialog: false
 };
 
 const getters = {};
@@ -49,9 +29,6 @@ const mutations = {
   },
   setCreateDialog(state, value) {
     state.createDialog = value;
-  },
-  setSelectedTicket(state, value) {
-    state.selectedTicket = value;
   },
   setEditedItemField(state, { fieldName, value }) {
     state.editedItem[fieldName] = value;
@@ -122,9 +99,6 @@ const actions = {
   },
   async setCreateDialog(context, { value }) {
     context.commit("setCreateDialog", value);
-  },
-  async setSelectedTicket(context, { value }) {
-    context.commit("setSelectedTicket", value);
   },
   async setEditedItemField(context, { fieldName, value }) {
     context.commit("setEditedItemField", {

@@ -18,27 +18,15 @@ const routes = [
     meta: { requiredAuth: false }
   },
   {
-    name: "ClientInfo",
-    path: "/clientInfo/:id",
-    component: () => import("@/views/ClientInfo"),
-    meta: { requiredAuth: true }
-  },
-  {
     name: "ClientList",
     path: "/clientList",
     component: () => import("@/views/ClientList"),
     meta: { requiredAuth: true }
   },
   {
-    name: "TicketInfo",
-    path: "/ticketInfo/:id",
-    component: () => import("@/views/TicketInfo"),
-    meta: { requiredAuth: true }
-  },
-  {
-    name: "TicketList",
-    path: "/ticketList",
-    component: () => import("@/views/TicketList"),
+    name: "JewelryList",
+    path: "/jewelryList",
+    component: () => import("@/views/JewelryList"),
     meta: { requiredAuth: true }
   }
 ];

@@ -9,7 +9,7 @@ import Axios from "axios";
 
 Vue.config.productionTip = false;
 
-Axios.defaults.baseURL = process.env.VUE_BASE_URL || "https://localhost:5000";
+Axios.defaults.baseURL = process.env.VUE_BASE_URL || "http://localhost:5000";
 
 new Vue({
   router,

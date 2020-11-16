@@ -11,12 +11,12 @@
         <v-tab to="/" v-if="loginStatus">Главная</v-tab>
         <v-tab to="/login" v-if="!loginStatus">Вход</v-tab>
         <v-tab to="/clientList" v-if="loginStatus">Список клиентов</v-tab>
-        <v-tab to="/ticketList" v-if="loginStatus">Список путевок</v-tab>
+        <v-tab to="/jewelryList" v-if="loginStatus">Список изделий</v-tab>
       </v-tabs>
-      <slot name="title">Турагенство</slot>
-      <v-btn v-if="loginStatus" class="ml-4" shaped rounded @click="logout"
-        >Выход</v-btn
-      >
+      <slot name="title">Ювелирный салон</slot>
+      <v-btn v-if="loginStatus" class="ml-4" shaped rounded @click="logout">
+        Выход
+      </v-btn>
     </v-app-bar>
 
     <v-main>

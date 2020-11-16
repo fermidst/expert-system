@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>Jewelry.Infrastructure</AssemblyName>
+        <RootNamespace>Jewelry.Infrastructure</RootNamespace>
+        <PackageId>Jewelry.Infrastructure</PackageId>
+        <Authors>Jewelry.Infrastructure</Authors>
+        <Company>Jewelry.Infrastructure</Company>
+        <Product>Jewelry.Infrastructure</Product>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
+    </ItemGroup>
+
+</Project>
